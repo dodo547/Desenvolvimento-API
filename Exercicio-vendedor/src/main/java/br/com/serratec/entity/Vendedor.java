@@ -10,14 +10,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Vendedor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigoVendedor;
+	@NotBlank
 	private String nome;
+	@Email
 	private String email;
+	@Min(value = 1412, message = "Salario muito baixo")
 	private Double salario;
 	private Double comissao;
 	

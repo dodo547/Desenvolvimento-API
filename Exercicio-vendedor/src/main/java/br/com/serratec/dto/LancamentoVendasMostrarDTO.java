@@ -2,14 +2,16 @@ package br.com.serratec.dto;
 
 import java.time.LocalDate;
 
+import br.com.serratec.entity.Vendedor;
+
 public class LancamentoVendasMostrarDTO {
 	private LocalDate dataVenda;
-	private Integer valorVenda;
-	private String NomeVendedor;
+	private Double valorVenda;
+	private Vendedor NomeVendedor;
 	
 	
 	
-	public LancamentoVendasMostrarDTO(LocalDate dataVenda, Integer valorVenda, String vendedor) {
+	public LancamentoVendasMostrarDTO(LocalDate dataVenda, Double valorVenda, Vendedor vendedor) {
 		this.dataVenda = dataVenda;
 		this.valorVenda = valorVenda;
 		this.NomeVendedor = vendedor;
@@ -22,16 +24,16 @@ public class LancamentoVendasMostrarDTO {
 	public void setDataVenda(LocalDate dataVenda) {
 		this.dataVenda = dataVenda;
 	}
-	public Integer getValorVenda() {
+	public Double getValorVenda() {
 		return valorVenda;
 	}
-	public void setValorVenda(Integer valorVenda) {
+	public void setValorVenda(Double valorVenda) {
 		this.valorVenda = valorVenda;
 	}
-	public String getVendedor() {
+	public Vendedor getVendedor() {
 		return NomeVendedor;
 	}
-	public void setVendedor(String vendedor) {
+	public void setVendedor(Vendedor vendedor) {
 		this.NomeVendedor = vendedor;
 	}
 	

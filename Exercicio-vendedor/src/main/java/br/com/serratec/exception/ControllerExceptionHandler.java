@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -57,5 +58,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler{
 		return super.handleExceptionInternal(ex, er, headers, status, request);
 	}
 	
-	//qualquer coisa dá pra reaproveitar esse código da aula passada aqui em cima!!!!
-}
+	@ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
+
+        List<String> erros = new ArrayList<>();
+        erros.add(ex.getMessage());
+
+        RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.NOT_FOUND.value(), "Recurso não encontrado",
+                LocalDateTime.now(), erros);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RespostaAosErros);
+    }}

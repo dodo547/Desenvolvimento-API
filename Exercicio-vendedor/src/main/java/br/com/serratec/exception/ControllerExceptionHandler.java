@@ -48,6 +48,14 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler{
 		return super.handleExceptionInternal(ex, er, headers, status, request);
 		}
 	
+	@ExceptionHandler(NomeException.class)
+	protected ResponseEntity<Object> handleNomeException(NomeException ex,
+			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+	
+		RespostaAosErros er = new RespostaAosErros(status.value(), "Email Invalido!",
+				LocalDateTime.now(), null);
+		return super.handleExceptionInternal(ex, er, headers, status, request);
+	}
 	
 	//qualquer coisa dá pra reaproveitar esse código da aula passada aqui em cima!!!!
 }

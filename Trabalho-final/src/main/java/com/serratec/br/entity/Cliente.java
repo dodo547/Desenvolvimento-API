@@ -23,18 +23,34 @@ public class Cliente {
 	private UUID id;
 
 	// TODO: Colocar mensagens nas validações daqui!!!
-	@NotBlank
+	@NotBlank(message = "Campo Obrigatório!")
 	private String nome;
-	@NotBlank
+	
+	@NotBlank(message = "Campo Obrigatório!")
 	private String telefone;
-	@CPF
+	
+	@CPF(message = "Insira um CPF válido")
 	private String cpf;
-	@Email
+	
+	@Email(message = "Insira um Email válido!")
 	private String email;
+	
+	
+	private String senha;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
+
+	
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	public UUID getId() {
 		return id;

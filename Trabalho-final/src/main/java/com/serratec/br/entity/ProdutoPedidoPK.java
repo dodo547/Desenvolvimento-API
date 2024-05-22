@@ -8,7 +8,7 @@ import jakarta.persistence.ManyToOne;
 public class ProdutoPedidoPK {
 
 	@ManyToOne
-	@JoinColumn(name = "id_pedido")
+	@JoinColumn(name = "id_Pedido")
 	private Pedido pedido;
 	
 	@ManyToOne

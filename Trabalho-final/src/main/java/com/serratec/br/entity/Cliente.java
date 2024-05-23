@@ -103,4 +103,13 @@ public class Cliente {
 		this.pedidos = pedidos;
 	}
 
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
+
 }

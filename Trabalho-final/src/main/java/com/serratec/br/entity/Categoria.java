@@ -10,6 +10,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Categoria {
@@ -30,7 +39,6 @@ public class Categoria {
 	}
 
 	public Categoria(Long id, String nomeCategoria, List<Produto> produtos) {
-		super();
 		this.id = id;
 		this.nomeCategoria = nomeCategoria;
 		this.produtos = produtos;
@@ -51,5 +59,14 @@ public class Categoria {
 	public void setNomeCategoria(String nomeCategoria) {
 		this.nomeCategoria = nomeCategoria;
 	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
 
 }

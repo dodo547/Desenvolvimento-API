@@ -23,6 +23,19 @@ public class Categoria {
 	@OneToMany(mappedBy = "categoria")
 	private List<Produto> produtos = new ArrayList<Produto>();
 	
+	
+	
+	public Categoria() {
+		super();
+	}
+
+	public Categoria(Long id, String nomeCategoria, List<Produto> produtos) {
+		super();
+		this.id = id;
+		this.nomeCategoria = nomeCategoria;
+		this.produtos = produtos;
+	}
+
 	public Long getId() {
 		return id;
 	}

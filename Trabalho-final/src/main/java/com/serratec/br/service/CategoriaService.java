@@ -17,12 +17,24 @@ public class CategoriaService {
 	//No serviço ele pediu no enumciado o post e o put, porém vamos fazer o get tbm pq somos teimosos
 	
 	//GetALL
-	private List<Categoria> listarCat() {
+	public List<Categoria> listar() {
 		return repository.findAll();
 	}
 	
 	//Post
-	private Categoria ColocarCat(Categoria cat) {
+	public Categoria CPostar(Categoria cat) {
 		return repository.save(cat);
+	}
+	
+	//Put (Ou update)
+	public Categoria Atualizar(Long id, Categoria cat){
+			Categoria a = repository.findById(id).orElse(null);
+			if(a != null) {
+				a.setId(id);
+				return repository.save(a);
+			}
+			else {
+				return null;
+			}
 	}
 }

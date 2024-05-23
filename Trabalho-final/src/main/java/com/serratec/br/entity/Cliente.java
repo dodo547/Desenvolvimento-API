@@ -1,7 +1,6 @@
 package com.serratec.br.entity;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -21,8 +20,8 @@ import jakarta.validation.constraints.NotBlank;
 public class Cliente {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	// TODO: Colocar mensagens nas validações daqui!!!
 	@NotBlank(message = "Campo Obrigatório!")
@@ -55,11 +54,11 @@ public class Cliente {
 		this.senha = senha;
 	}
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

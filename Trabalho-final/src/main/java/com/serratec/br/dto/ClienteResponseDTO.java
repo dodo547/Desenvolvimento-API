@@ -2,14 +2,13 @@ package com.serratec.br.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import com.serratec.br.entity.Cliente;
 import com.serratec.br.entity.Pedido;
 
 public class ClienteResponseDTO {
 	
-	private UUID id;
+	private Long id;
 	private String telefone;
 	private String email;
 	private List<Pedido> pedidos = new ArrayList<>();
@@ -24,10 +23,10 @@ public class ClienteResponseDTO {
 		this.pedidos = cliente.getPedidos();	
 	}
 	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getTelefone() {

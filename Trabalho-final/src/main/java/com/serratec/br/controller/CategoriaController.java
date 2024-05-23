@@ -37,7 +37,7 @@ public class CategoriaController {
 	public ResponseEntity<Categoria> atualizarCategoria(@RequestParam Long id, @Valid @RequestBody Categoria cat){
 		Categoria a = service.Atualizar(id, cat);
 		if(a != null) {
-			return ResponseEntity.ok(a);
+			return ResponseEntity.ok(cat);
 		}
 		return ResponseEntity.notFound().build();
 	}

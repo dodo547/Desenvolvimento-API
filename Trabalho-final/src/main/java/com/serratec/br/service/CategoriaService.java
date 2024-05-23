@@ -32,8 +32,8 @@ public class CategoriaService {
 	public Categoria Atualizar(Long id, Categoria cat){
 			Categoria a = repository.findById(id).orElse(null);
 			if(a != null) {
-				a.setId(id);
-				return repository.save(a);
+				cat.setId(id);
+				return repository.save(cat);
 			}
 			else {
 				return null;

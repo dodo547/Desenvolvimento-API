@@ -11,7 +11,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -25,25 +27,26 @@ public class Cliente {
 	// TODO: Colocar mensagens nas validações daqui!!!
 	@NotBlank(message = "Campo Obrigatório!")
 	private String nome;
-	
+
 	@NotBlank(message = "Campo Obrigatório!")
 	private String telefone;
-	
+
 	@CPF(message = "Insira um CPF válido")
 	private String cpf;
-	
+
 	@Email(message = "Insira um Email válido!")
 	private String email;
-	
-	
+
 	private String senha;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
+	
+	@OneToOne
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;
 
-	
-	
 	public String getSenha() {
 		return senha;
 	}

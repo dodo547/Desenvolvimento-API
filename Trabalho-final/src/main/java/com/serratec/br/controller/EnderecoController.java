@@ -13,6 +13,7 @@ import com.serratec.br.service.EnderecoService;
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoController {
+	
 	@Autowired
 	private EnderecoService service;
 

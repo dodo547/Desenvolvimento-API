@@ -12,40 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.serratec.br.entity.Cliente;
-import com.serratec.br.service.ClienteService;
+import com.serratec.br.dto.ProdutoResponseDTO;
+import com.serratec.br.entity.Produto;
+import com.serratec.br.exception.ValorExcpetion;
+import com.serratec.br.service.ProdutoService;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/clientes")
-public class ClienteController {
+@RequestMapping("/produto")
+public class ProdutoController {
 	
 	@Autowired
-	public ClienteService service;
+	ProdutoService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Cliente>> listarTodos(){
+	private ResponseEntity<List<ProdutoResponseDTO>> listar(){
 		return ResponseEntity.ok(service.listar());
 	}
 	
-	@PostMapping("/{cep}")
-	public ResponseEntity<Cliente> adicionarCliente(@PathVariable String cep, @Valid @RequestBody Cliente c){
-		Cliente a = service.InserirC(cep, c);
-		if(a == null) {
-			return ResponseEntity.notFound().build();
-		}else {
-			return ResponseEntity.ok(c);
-		}
+	@PostMapping
+	private ResponseEntity<ProdutoResponseDTO> inserir(@Valid @RequestBody Produto produto){
+		return ResponseEntity.ok(service.postar(produto));
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizarCliente(@PathVariable Long id, @Valid @RequestBody Cliente c){
-		Cliente a = service.Atualizar(id, c);
+	private ResponseEntity<ProdutoResponseDTO> atualizar(@PathVariable Long id,@Valid @RequestBody Produto produto){
+		ProdutoResponseDTO a = service.atualizar(id, produto);
 		if(a != null) {
-			return ResponseEntity.ok(c);
+			return ResponseEntity.ok(a);
+		}else {
+			throw new ValorExcpetion("Valor está errado sério mesmo");
 		}
-		return ResponseEntity.notFound().build();
 	}
-
+	
 }

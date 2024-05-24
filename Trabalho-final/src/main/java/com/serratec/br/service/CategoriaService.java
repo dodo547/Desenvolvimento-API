@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.serratec.br.dto.CategoriaResponseDTO;
 import com.serratec.br.entity.Categoria;
+import com.serratec.br.exception.ResourceNotFoundException;
 import com.serratec.br.repository.CategoriaRepository;
 
 
@@ -24,19 +26,15 @@ public class CategoriaService {
 	}
 	
 	//Post
-	public Categoria CPostar(Categoria cat) {
-		return repository.save(cat);
+	public CategoriaResponseDTO CPostar(Categoria cat) {
+		return new CategoriaResponseDTO(repository.save(cat));
 	}
 	
 	//Put (Ou update)
-	public Categoria Atualizar(Long id, Categoria cat){
-			Categoria a = repository.findById(id).orElse(null);
-			if(a != null) {
-				cat.setId(id);
-				return repository.save(cat);
-			}
-			else {
-				return null;
-			}
+	public CategoriaResponseDTO Atualizar(Long id, Categoria cat){
+		Categoria a = repository.findById(id).orElse(null);
+		if(a == null) throw new ResourceNotFoundException("Não foi possível achar o id pedido");
+		cat.setId(id);
+		return new CategoriaResponseDTO(repository.save(cat));
 	}
 }

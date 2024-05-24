@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.serratec.br.dto.EnderecoResponseDTO;
 import com.serratec.br.entity.Endereco;
-import com.serratec.br.exception.ResourceNotFoundException;
 import com.serratec.br.repository.EnderecoRepository;
 
 @Service
@@ -18,25 +17,21 @@ public class EnderecoService {
 	private EnderecoRepository repository;
 
 	public EnderecoResponseDTO buscar(String cep) {
-		Optional<Endereco> endereco = Optional.ofNullable(repository.findByCep(cep));
-		if (endereco.isPresent()) {
-			return new EnderecoResponseDTO(endereco.get());
 
+		RestTemplate rs = new RestTemplate();
+		String url = "http://viacep.com.br/ws/" + cep + "/json";
+		Optional<Endereco> enderecoViaCep = Optional.ofNullable(rs.getForObject(url, Endereco.class));
+		if (enderecoViaCep.get().getCep() != null) {
+			String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
+			enderecoViaCep.get().setCep(cepSemTraco);
+			return inserir(enderecoViaCep.get());
 		} else {
-			RestTemplate rs = new RestTemplate();
-			String url = "http://viacep.com.br/ws/" + cep + "/json";
-			Optional<Endereco> enderecoViaCep = Optional.ofNullable(rs.getForObject(url, Endereco.class));
-			if (enderecoViaCep.get().getCep() != null) {
-				String cepSemTraco = enderecoViaCep.get().getCep().replaceAll("-", "");
-				enderecoViaCep.get().setCep(cepSemTraco);
-				return inserir(enderecoViaCep.get());
-			} else {
-				throw new ResourceNotFoundException("Cep não localizado!");
-			}
+			return null;
 		}
 	}
+
 	public EnderecoResponseDTO inserir(Endereco endereco) {
 		return new EnderecoResponseDTO(repository.save(endereco));
 	}
-	
+
 }

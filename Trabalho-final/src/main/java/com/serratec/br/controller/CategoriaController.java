@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.serratec.br.dto.CategoriaResponseDTO;
 import com.serratec.br.entity.Categoria;
 import com.serratec.br.service.CategoriaService;
 
@@ -24,8 +25,8 @@ public class CategoriaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Categoria> adicionarCategoria(@Valid @RequestBody Categoria cat){
-		Categoria a = service.CPostar(cat);
+	public ResponseEntity<CategoriaResponseDTO> adicionarCategoria(@Valid @RequestBody Categoria cat){
+		CategoriaResponseDTO a = service.CPostar(cat);
 		if(a == null) {
 			return ResponseEntity.notFound().build();
 		}else {
@@ -33,11 +34,11 @@ public class CategoriaController {
 		}
 	}
 	
-	@PutMapping("{id}")
-	public ResponseEntity<Categoria> atualizarCategoria(@RequestParam Long id, @Valid @RequestBody Categoria cat){
-		Categoria a = service.Atualizar(id, cat);
+	@PutMapping("/{id}")
+	public ResponseEntity<CategoriaResponseDTO> atualizarCategoria(@PathVariable Long id, @Valid @RequestBody Categoria cat){
+		CategoriaResponseDTO a = service.Atualizar(id, cat);
 		if(a != null) {
-			return ResponseEntity.ok(cat);
+			return ResponseEntity.ok(a);
 		}
 		return ResponseEntity.notFound().build();
 	}

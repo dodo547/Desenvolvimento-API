@@ -1,13 +1,19 @@
 package com.serratec.br.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -26,6 +32,10 @@ public class Produto {
 	@JoinColumn(name = "id_categoria")
 	@ManyToOne
 	private Categoria categoria;
+	
+
+	@OneToMany(mappedBy = "id.produto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private Set<ProdutoPedido> produtos = new HashSet<>();
 
 	public Long getId() {
 		return id;
@@ -66,5 +76,15 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	public Set<ProdutoPedido> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Set<ProdutoPedido> produtos) {
+		this.produtos = produtos;
+	}
+	
+	
 
 }

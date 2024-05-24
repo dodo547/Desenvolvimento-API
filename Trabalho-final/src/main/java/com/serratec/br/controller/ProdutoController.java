@@ -24,20 +24,20 @@ import jakarta.validation.Valid;
 public class ProdutoController {
 	
 	@Autowired
-	ProdutoService service;
+	private ProdutoService service;
 	
 	@GetMapping
-	private ResponseEntity<List<ProdutoResponseDTO>> listar(){
+	public ResponseEntity<List<ProdutoResponseDTO>> listar(){
 		return ResponseEntity.ok(service.listar());
 	}
 	
 	@PostMapping
-	private ResponseEntity<ProdutoResponseDTO> inserir(@Valid @RequestBody Produto produto){
+	public ResponseEntity<ProdutoResponseDTO> inserir(@Valid @RequestBody Produto produto){
 		return ResponseEntity.ok(service.postar(produto));
 	}
 	
 	@PutMapping("/{id}")
-	private ResponseEntity<ProdutoResponseDTO> atualizar(@PathVariable Long id,@Valid @RequestBody Produto produto){
+	public ResponseEntity<ProdutoResponseDTO> atualizar(@PathVariable Long id,@Valid @RequestBody Produto produto){
 		ProdutoResponseDTO a = service.atualizar(id, produto);
 		if(a != null) {
 			return ResponseEntity.ok(a);

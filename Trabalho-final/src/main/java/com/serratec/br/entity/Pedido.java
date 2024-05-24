@@ -1,7 +1,7 @@
 package com.serratec.br.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.serratec.br.enums.StatusENUM;
@@ -31,9 +31,43 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "id.pedido", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	private List<ProdutoPedido> produtos = new ArrayList<>();
+	private Set<ProdutoPedido> pedidos = new HashSet<>();
 	
 	@Enumerated(EnumType.ORDINAL)
 	private StatusENUM status;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public Set<ProdutoPedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<ProdutoPedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	public StatusENUM getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusENUM status) {
+		this.status = status;
+	}
+
+	
+	
 }

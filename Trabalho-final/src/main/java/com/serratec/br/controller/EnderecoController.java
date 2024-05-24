@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.serratec.br.dto.EnderecoResponseDTO;
+import com.serratec.br.entity.Endereco;
 import com.serratec.br.service.EnderecoService;
 
 @RestController
@@ -18,8 +18,8 @@ public class EnderecoController {
 	private EnderecoService service;
 
 	@GetMapping("{cep}")
-	public ResponseEntity<EnderecoResponseDTO> buscarCep(@PathVariable String cep) {
-		EnderecoResponseDTO dto = service.buscar(cep);
+	public ResponseEntity<Endereco> buscarCep(@PathVariable String cep) {
+		Endereco dto = service.buscar(cep);
 		if (dto == null) {
 			return ResponseEntity.notFound().build();
 		}

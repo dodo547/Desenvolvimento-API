@@ -2,8 +2,6 @@ package com.serratec.br.entity;
 
 import java.util.List;
 
-import com.serratec.br.dto.EnderecoResponseDTO;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

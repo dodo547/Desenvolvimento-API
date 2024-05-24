@@ -16,7 +16,7 @@ public class EnderecoService {
 	@Autowired
 	private EnderecoRepository repository;
 
-	public EnderecoResponseDTO buscar(String cep) {
+	public Endereco buscar(String cep) {
 
 		RestTemplate rs = new RestTemplate();
 		String url = "http://viacep.com.br/ws/" + cep + "/json";
@@ -30,8 +30,8 @@ public class EnderecoService {
 		}
 	}
 
-	public EnderecoResponseDTO inserir(Endereco endereco) {
-		return new EnderecoResponseDTO(repository.save(endereco));
+	public Endereco inserir(Endereco endereco) {
+		return repository.save(endereco);
 	}
 
 }

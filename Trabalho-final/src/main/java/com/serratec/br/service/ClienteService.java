@@ -1,12 +1,9 @@
 package com.serratec.br.service;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.serratec.br.dto.EnderecoResponseDTO;
 import com.serratec.br.entity.Cliente;
 import com.serratec.br.entity.Endereco;
 import com.serratec.br.repository.ClienteRepository;
@@ -15,10 +12,10 @@ import com.serratec.br.repository.ClienteRepository;
 public class ClienteService {
 
 	@Autowired
-	ClienteRepository repository;
+	private ClienteRepository repository;
 
 	@Autowired
-	EnderecoService enderecoService;
+	private EnderecoService enderecoService;
 
 	// GetAll
 	public List<Cliente> listar() {
@@ -27,13 +24,12 @@ public class ClienteService {
 
 	// Post
 	public Cliente InserirC(String cep, Cliente c) {
-		EnderecoResponseDTO endereco = enderecoService.buscar(cep);
-        Long enderecoId = ThreadLocalRandom.current().nextLong(1, Long.MAX_VALUE);
+		Endereco endereco = enderecoService.buscar(cep);
+        if(endereco != null) {//usar esse negócio de criar aleatóriamente ou por o ID direto
+//		Endereco enderecozinho = new Endereco( endereco.getCep(), endereco.getLogradouro(),
+//				endereco.getBairro(), endereco.getLocalidade(), endereco.getUf());
 
-		if(endereco != null) {//usar esse negócio de criar aleatóriamente ou por o ID direto
-		Endereco enderecozinho = new Endereco(c.getId(), endereco.getCep(), endereco.getLogradouro(),
-				endereco.getBairro(), endereco.getLocalidade(), endereco.getUf());
-		c.setEndereco(enderecozinho);
+		c.setEndereco(endereco);
 		return repository.save(c);
 		}else {
 		return null;

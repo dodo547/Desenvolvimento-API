@@ -1,9 +1,14 @@
 package com.serratec.br.entity;
 
+import java.util.List;
+
+import com.serratec.br.dto.EnderecoResponseDTO;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Endereco {
@@ -18,23 +23,22 @@ public class Endereco {
 	private String localidade;
 	private String uf;
 
-	
-	
-	
+	@OneToMany(mappedBy = "endereco")
+	private List<Cliente> cliente;
+
 	public Endereco() {
-		
+
 	}
 
-	
-	
-	public Endereco(Long id, String cep, String logradouro, String bairro, String localidade, String uf) {
-		this.id = id;
+	public Endereco(String cep, String logradouro, String bairro, String localidade, String uf) {
+
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.bairro = bairro;
 		this.localidade = localidade;
 		this.uf = uf;
 	}
+
 
 	public Long getId() {
 		return id;

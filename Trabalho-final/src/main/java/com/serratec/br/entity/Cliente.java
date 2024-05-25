@@ -33,6 +33,7 @@ public class Cliente {
 	@CPF(message = "Insira um CPF válido")
 	private String cpf;
 
+	@NotBlank
 	@Email(message = "Insira um Email válido!")
 	private String email;
 
@@ -109,6 +110,12 @@ public class Cliente {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+
+	@Override
+	public String toString() {
+		return "um email lindo para minha mãe usando programação";
+	}
+	
 	
 
 }

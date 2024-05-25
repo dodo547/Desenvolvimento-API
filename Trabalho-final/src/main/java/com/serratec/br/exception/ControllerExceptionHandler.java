@@ -85,5 +85,17 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RespostaAosErros);
 	}
+	
+
+	@ExceptionHandler(EmailException.class)
+	protected ResponseEntity<Object> handleValorException(EmailException ex) {
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+
+		RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.NO_CONTENT.value(), "Por favor insira um email!",
+				LocalDateTime.now(), erros);
+
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(RespostaAosErros);
+	}
 
 }

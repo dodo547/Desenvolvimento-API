@@ -1,12 +1,17 @@
 package com.serratec.br.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.serratec.br.configuration.MailConfig;
 import com.serratec.br.entity.Cliente;
 import com.serratec.br.entity.Endereco;
+import com.serratec.br.exception.EmailException;
 import com.serratec.br.repository.ClienteRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClienteService {
@@ -16,6 +21,9 @@ public class ClienteService {
 
 	@Autowired
 	private EnderecoService enderecoService;
+	
+	@Autowired
+	private MailConfig mailConfig;
 
 	// GetAll
 	public List<Cliente> listar() {
@@ -23,13 +31,13 @@ public class ClienteService {
 	}
 
 	// Post
+	@Transactional
 	public Cliente InserirC(String cep, Cliente c) {
+		if (c.getEmail() == null) throw new EmailException("Bota um email de verdade!");
 		Endereco endereco = enderecoService.buscar(cep);
-        if(endereco != null) {//usar esse negócio de criar aleatóriamente ou por o ID direto
-//		Endereco enderecozinho = new Endereco( endereco.getCep(), endereco.getLogradouro(),
-//				endereco.getBairro(), endereco.getLocalidade(), endereco.getUf());
-
+        if(endereco != null) {
 		c.setEndereco(endereco);
+		mailConfig.sendMail(c.getEmail(),"Cadastro de Usuário no Sistema" ,c.toString());
 		return repository.save(c);
 		}else {
 		return null;

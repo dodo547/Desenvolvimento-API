@@ -30,6 +30,6 @@ public class ProdutoPedidoPK {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
+
 	
 }

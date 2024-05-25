@@ -29,7 +29,7 @@ public class ProdutoService {
 	}
 
 	// post
-	public ProdutoResponseDTO postar(Produto produto) { // talvez nn seja o melhor jeito de tratar erros mas foi como eu consegui
+	public ProdutoResponseDTO postar(Produto produto) {
 		if (produto.getValor() <= 0 || produto.getValor() == null)
 			throw new ValorExcpetion("Valor vazio ou menor que zero");
 		if (produto.getNome() == null)

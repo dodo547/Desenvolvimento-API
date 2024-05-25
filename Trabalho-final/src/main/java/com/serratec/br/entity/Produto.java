@@ -37,6 +37,14 @@ public class Produto {
 	@OneToMany(mappedBy = "id.produto", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<ProdutoPedido> produtos = new HashSet<>();
 
+	
+	
+	public Produto() {
+		super();
+	}
+
+	
+
 	public Long getId() {
 		return id;
 	}
@@ -83,6 +91,14 @@ public class Produto {
 
 	public void setProdutos(Set<ProdutoPedido> produtos) {
 		this.produtos = produtos;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", valor=" + valor + ", categoria="
+				+ categoria + ", produtos=" + produtos + "]";
 	}
 	
 	

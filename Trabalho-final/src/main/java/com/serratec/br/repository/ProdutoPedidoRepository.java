@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.serratec.br.entity.ProdutoPedido;
 import com.serratec.br.entity.ProdutoPedidoPK;
 
-public interface PedidoProdutoRepository extends JpaRepository<ProdutoPedido, ProdutoPedidoPK>{
+public interface ProdutoPedidoRepository extends JpaRepository<ProdutoPedido, ProdutoPedidoPK>{
 
 }

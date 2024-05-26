@@ -16,8 +16,6 @@ import com.serratec.br.entity.Pedido;
 import com.serratec.br.exception.ValorExcpetion;
 import com.serratec.br.service.PedidoService;
 
-import jakarta.validation.Valid;
-
 
 @RequestMapping("/pedidos")
 @RestController

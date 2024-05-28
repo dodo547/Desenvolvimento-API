@@ -17,7 +17,7 @@ import com.serratec.br.dto.JogoResponseDTO;
 import com.serratec.br.entity.Jogo;
 import com.serratec.br.service.JogoService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("/jogos")
 @RestController

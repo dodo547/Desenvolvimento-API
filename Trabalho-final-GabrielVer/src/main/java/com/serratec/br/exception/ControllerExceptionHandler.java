@@ -1,0 +1,101 @@
+package com.serratec.br.exception;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+@ControllerAdvice
+public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
+
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+		List<String> erros = new ArrayList<>();
+		for (FieldError f : ex.getBindingResult().getFieldErrors()) {
+			erros.add(f.getField() + ":" + f.getDefaultMessage());
+		}
+
+		RespostaAosErros er = new RespostaAosErros(status.value(), "Existem Campos Inválidos", LocalDateTime.now(),
+				erros);
+		return super.handleExceptionInternal(ex, er, headers, status, request);
+	}
+
+	@Override
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+
+		RespostaAosErros er = new RespostaAosErros(status.value(), "Campos inválidos foram inseridos, favor verificar",
+				LocalDateTime.now(), null);
+		return super.handleExceptionInternal(ex, er, headers, status, request);
+	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
+
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+
+		RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.NOT_FOUND.value(), "Recurso não encontrado",
+				LocalDateTime.now(), erros);
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RespostaAosErros);
+	}
+
+	@ExceptionHandler(ValorExcpetion.class)
+	protected ResponseEntity<Object> handleValorException(ValorExcpetion ex) {
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+
+		RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.NOT_FOUND.value(), "Valor Inválido",
+				LocalDateTime.now(), erros);
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RespostaAosErros);
+	}
+	
+	@ExceptionHandler(NomeException.class)
+	protected ResponseEntity<Object> handleValorException(NomeException ex) {
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+
+		RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.NOT_FOUND.value(), "Nome Inválido",
+				LocalDateTime.now(), erros);
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RespostaAosErros);
+	}
+	
+	@ExceptionHandler(CategoriaException.class)
+	protected ResponseEntity<Object> handleValorException(CategoriaException ex) {
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+
+		RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.BAD_REQUEST.value(), "Categoria inválida",
+				LocalDateTime.now(), erros);
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(RespostaAosErros);
+	}
+	
+
+	@ExceptionHandler(EmailException.class)
+	protected ResponseEntity<Object> handleValorException(EmailException ex) {
+		List<String> erros = new ArrayList<>();
+		erros.add(ex.getMessage());
+
+		RespostaAosErros RespostaAosErros = new RespostaAosErros(HttpStatus.NO_CONTENT.value(), "Por favor insira um email!",
+				LocalDateTime.now(), erros);
+
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(RespostaAosErros);
+	}
+
+}
